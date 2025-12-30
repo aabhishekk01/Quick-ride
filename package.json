@@ -1,0 +1,36 @@
+{
+  "name": "quick-ride",
+  "version": "1.0.0",
+  "description": "ride-sharing web app",
+  "dependencies": {
+    "express": "^4.22.1",
+    "mongodb": "^7.0.0",
+    "mongoose": "^7.0.0",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3"
+  },
+  "homepage": "https://github.com/aabhishekk01/quick-ride#readme",
+  "bugs": {
+    "url": "https://github.com/aabhishekk01/quick-ride/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aabhishekk01/quick-ride.git"
+  },
+  "license": "Apache-2.0",
+  "author": "@abhishek-tripathi",
+  "type": "module",
+  "main": "Server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node Server.js",
+    "start:server": "node Server.js",
+    "start:front": "live-server Public --port=3001 --no-browser",
+    "dev": "concurrently \"nodemon Server.js\" \"live-server Public --port=3001 --no-browser\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.22",
+    "live-server": "^1.2.2"
+  }
+}
