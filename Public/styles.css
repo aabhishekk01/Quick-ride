@@ -295,3 +295,29 @@ input {
   font-weight: bold;
   cursor: pointer;
 }
+
+/* Profile button styles */
+.profile, #profileBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.08s ease, box-shadow 0.15s ease;
+  user-select: none;
+}
+
+.profile:hover, #profileBtn:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.profile:active, #profileBtn:active {
+  transform: translateY(0);
+  background: rgba(255,255,255,0.04);
+}

@@ -112,5 +112,36 @@ app.get('/api/images', async (req, res) => {
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+const DEFAULT_PORT = Number(process.env.PORT) || 3000;
+
+function startServer(port = DEFAULT_PORT, attempts = 0, maxRetries = 3) {
+    const server = app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+
+    server.on('error', (err) => {
+        if (err && err.code === 'EADDRINUSE') {
+            console.warn(`Port ${port} is already in use.`);
+            if (attempts < maxRetries) {
+                const nextPort = port + 1;
+                console.warn(`Attempting to listen on port ${nextPort} (retry ${attempts + 1}/${maxRetries})`);
+                setTimeout(() => startServer(nextPort, attempts + 1, maxRetries), 1000);
+            } else {
+                console.error(`All retries exhausted. Could not bind to a port. Exiting.`);
+                process.exit(1);
+            }
+        } else {
+            console.error('Server error:', err);
+            process.exit(1);
+        }
+    });
+}
+
+// Global handlers for unexpected failures
+process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled Rejection:', reason);
+});
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+    process.exit(1);
+});
+
+startServer();

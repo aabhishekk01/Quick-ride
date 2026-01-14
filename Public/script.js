@@ -110,7 +110,7 @@ loadImages();
 
 // Helper to fill input from popular cards
 window.selectDest = (place) => {
-    destInput.value = place;
+    if (destInput) destInput.value = place;
 };
 
 // --- Auth UI / logic ---
@@ -180,6 +180,8 @@ const logout = () => { localStorage.removeItem('qr_user'); updateAuthUI(); };
 const updateAuthUI = () => {
     const raw = localStorage.getItem('qr_user');
     const user = raw ? JSON.parse(raw) : null;
+    // ensure profile button exists before manipulating it
+    if (!profileBtn) return;
     if (user) {
         profileBtn.classList.add('logged-in');
         profileBtn.innerText = user.name ? user.name.split(' ')[0] : user.email;
@@ -249,4 +251,4 @@ const handleRequest = async () => {
     }
 };
 
-requestBtn.addEventListener('click', handleRequest);
+requestBtn?.addEventListener('click', handleRequest);
